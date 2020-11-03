@@ -7,7 +7,7 @@ export default function Chat({ info, signOut }) {
   const [messages, setMessages] = useState([]);
   const messageInput = useRef(null);
   const subscribe = async () => {
-    await fetch(`http://localhost:${PORT}/subscribe`, {
+    await fetch(`http://localhost:${PORT}/subscribe?random=${Math.random()}`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -51,7 +51,16 @@ export default function Chat({ info, signOut }) {
       }),
     })
       .then((res) => {
-        if (res.status === 401) {
+        if (res.status === 200) {
+          setMessages((preMessages) => [
+            ...preMessages,
+            {
+              name: info.name,
+              content: event.target["input"].value,
+              id: info.id,
+            },
+          ]);
+        } else if (res.status === 401) {
           signOut(false);
         }
         messageInput.current.value = "";

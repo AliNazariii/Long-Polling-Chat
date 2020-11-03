@@ -47,14 +47,17 @@ app.post("/send", (req, res) => {
       console.log(
         `Message Received sender: ${req.headers.id} content: ${req.body.message}`
       );
-      subscribers.forEach((subscriber, userId) => {
-        subscriber.status(200).send({
-          id: req.headers.id,
-          name: users.get(Number(req.headers.id)),
-          content: req.body.message,
-        });
+      const subs = new Map(subscribers);
+      subs.forEach((subscriber, userId) => {
+        if (userId !== Number(req.headers.id)) {
+          subscribers.delete(userId);
+          subscriber.status(200).send({
+            id: req.headers.id,
+            name: users.get(Number(req.headers.id)),
+            content: req.body.message,
+          });
+        }
       });
-      subscribers.clear();
       res.status(200).send({ ok: true });
     } else {
       res.status(401).send();
