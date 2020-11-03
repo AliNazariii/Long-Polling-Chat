@@ -16,8 +16,8 @@ export default function Chat({ info, signOut }) {
     })
       .then((res) => res.json())
       .then((res) => {
-        setMessages([
-          ...messages,
+        setMessages((preMessages) => [
+          ...preMessages,
           { name: res.name, content: res.content, id: res.id },
         ]);
         console.log(res);
@@ -29,7 +29,9 @@ export default function Chat({ info, signOut }) {
       });
   };
 
-  subscribe();
+  useEffect(() => {
+    subscribe();
+  }, []);
 
   const sendMessage = async (event) => {
     event.preventDefault();

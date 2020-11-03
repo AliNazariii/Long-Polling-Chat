@@ -1,7 +1,9 @@
+import { useEffect, useRef } from "react";
 import { PORT } from "../pages/_app";
 import styles from "../styles/join.module.css";
 
 export default function Join({ setinfo }) {
+  const nameInput = useRef(null);
   const join = async (event) => {
     event.preventDefault();
     await fetch(`http://localhost:${PORT}/join`, {
@@ -22,10 +24,15 @@ export default function Join({ setinfo }) {
       .catch((e) => console.log(e));
   };
 
+  useEffect(() => {
+    nameInput.current.focus();
+  }, []);
+
   return (
     <div className={styles.JoinWrapper}>
       <form className={styles.JoinForm} onSubmit={join}>
         <input
+          ref={nameInput}
           autoComplete="off"
           placeholder="Enter your name"
           className={styles.NameInput}

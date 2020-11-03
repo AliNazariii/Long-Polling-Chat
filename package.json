@@ -8,8 +8,8 @@
     "dev:client": "next dev",
     "build:client": "next build",
     "start:client": "next start",
-    "start:server": "node server.js",
-    "dev:server": "nodemon server.js"
+    "start:server": "node ./server/index.js",
+    "dev:server": "nodemon ./server/index.js"
   },
   "author": "",
   "license": "ISC",

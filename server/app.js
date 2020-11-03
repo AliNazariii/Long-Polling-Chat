@@ -1,12 +1,9 @@
 const express = require("express");
-var cors = require("cors");
-
 const app = express();
+const cors = require("cors");
 
 app.use(express.json());
 app.use(cors({ credentials: true, origin: true }));
-
-const PORT = 4000;
 
 const users = new Map();
 let subscribers = new Map();
@@ -22,7 +19,7 @@ app.post("/join", (req, res) => {
     .send({ ok: true });
 });
 
-app.get("/subscribe", (req, res) => {
+app.get("/subscribe", (req, res, next) => {
   console.log("New Subscriber: ", req.headers.id);
   if (users.has(Number(req.headers.id))) {
     subscribers.set(Number(req.headers.id), res);
@@ -48,6 +45,4 @@ app.post("/send", (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`App listening at http://localhost:${PORT}`);
-});
+module.exports = app;
