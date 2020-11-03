@@ -1,7 +1,7 @@
 .ChatWrapper {
   width: 100%;
   height: 100%;
-  max-width: 1440px;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,35 +23,29 @@
   border-radius: 15px;
 }
 
-.MessageForm {
+.FooterForm {
   width: 100%;
   display: flex;
   align-items: center;
   margin: 0;
   padding: 0;
   padding-bottom: 10px;
+  border-top: 1px solid rgb(226, 226, 226);
 }
 
 .MessageInput {
   display: block;
   border: 1px solid rgb(226, 226, 226);
-  border-radius: 10px;
+  border-radius: 60px;
   height: 50px;
   outline: none;
-  padding: 0 10px;
+  padding: 0 20px;
   width: 100%;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
 .SendBtn {
-  display: block;
-  border: none;
-  cursor: pointer;
-  border-radius: 10px;
-  height: 50px;
-  background-color: #00a9d3;
-  color: #ffffff;
-  font-weight: 600;
-  width: 100px;
-  margin-left: 40px;
-  outline: none;
+  width: 40px;
+  margin-left: 20px;
 }

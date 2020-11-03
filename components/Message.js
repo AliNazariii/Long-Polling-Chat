@@ -12,7 +12,8 @@ export default function Message({ name, content, isOut }) {
         className={styles.Message}
         style={{
           borderRadius: isOut ? "10px 10px 0 10px" : "10px 10px 10px 0 ",
-          backgroundColor: isOut ? "#00a9d3" : "#686868",
+          backgroundColor: isOut ? "#46c680" : "#f3f3f4",
+          color: isOut ? "#ffffff" : "#3f3f4a",
         }}
       >
         {isOut ? null : <h4 className={styles.Sender}>{name}</h4>}

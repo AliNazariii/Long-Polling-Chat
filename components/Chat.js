@@ -40,6 +40,7 @@ export default function Chat({ info, signOut }) {
 
   const sendMessage = async (event) => {
     event.preventDefault();
+    if (messageInput.current.value.trim() === "") return;
     await fetch(`http://localhost:${PORT}/send`, {
       method: "POST",
       headers: new Headers({
@@ -47,7 +48,7 @@ export default function Chat({ info, signOut }) {
         id: info.id,
       }),
       body: JSON.stringify({
-        message: event.target["input"].value,
+        message: messageInput.current.value,
       }),
     })
       .then((res) => {
@@ -56,7 +57,7 @@ export default function Chat({ info, signOut }) {
             ...preMessages,
             {
               name: info.name,
-              content: event.target["input"].value,
+              content: messageInput.current.value,
               id: info.id,
             },
           ]);
@@ -81,7 +82,7 @@ export default function Chat({ info, signOut }) {
           />
         ))}
       </div>
-      <form className={styles.MessageForm} onSubmit={sendMessage}>
+      <form className={styles.FooterForm} onSubmit={sendMessage}>
         <input
           ref={messageInput}
           autoComplete="off"
@@ -89,7 +90,11 @@ export default function Chat({ info, signOut }) {
           type="text"
           name="input"
         />
-        <input className={styles.SendBtn} type="submit" value="Send" />
+        <img
+          src="/ic_send.svg"
+          className={styles.SendBtn}
+          onClick={sendMessage}
+        />
       </form>
     </div>
   );

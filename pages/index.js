@@ -1,5 +1,4 @@
-import { Fragment, useState } from "react";
-import styles from "../styles/index.module.css";
+import { useState } from "react";
 import Join from "../components/Join";
 import Chat from "../components/Chat";
 
