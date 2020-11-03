@@ -1,0 +1,21 @@
+.MessageWrapper {
+  width: 100%;
+  display: flex;
+  margin: 5px 0;
+}
+
+.Message {
+  width: fit-content;
+  padding: 10px;
+  color: #ffffff;
+}
+
+.Sender {
+  margin: 0;
+  padding: 0;
+}
+
+.Content {
+  margin: 0;
+  padding: 0;
+}

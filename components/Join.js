@@ -13,10 +13,9 @@ export default function Join({ setinfo }) {
         name: event.target["input"].value,
       }),
     })
-      .then((res) => res.json())
       .then((res) =>
         setinfo({
-          id: res.id,
+          id: res.headers.get("id"),
           name: event.target["input"].value,
         })
       )

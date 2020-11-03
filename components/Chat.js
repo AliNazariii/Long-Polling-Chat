@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PORT } from "../pages/_app";
 import styles from "../styles/chat.module.css";
+import Message from "./Message";
 
-export default function Chat({ info }) {
+export default function Chat({ info, signOut }) {
   const [messages, setMessages] = useState([]);
+  const messageInput = useRef(null);
   const subscribe = async () => {
     await fetch(`http://localhost:${PORT}/subscribe`, {
       method: "GET",
@@ -14,12 +16,17 @@ export default function Chat({ info }) {
     })
       .then((res) => res.json())
       .then((res) => {
-        setMessages([...messages, { name: res.name, content: res.content }])
-        console.log(res)
-      }
-      )
+        setMessages([
+          ...messages,
+          { name: res.name, content: res.content, id: res.id },
+        ]);
+        console.log(res);
+      })
       .then(() => subscribe())
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        signOut(false);
+      });
   };
 
   subscribe();
@@ -37,6 +44,9 @@ export default function Chat({ info }) {
       }),
     })
       .then((res) => console.log(res))
+      .then(() => {
+        messageInput.current.value = "";
+      })
       .catch((e) => console.log(e));
   };
 
@@ -44,11 +54,17 @@ export default function Chat({ info }) {
     <div className={styles.ChatWrapper}>
       <div className={styles.MessagesList}>
         {messages.map((message) => (
-          <p key={Math.random()}>{message.content}</p>
+          <Message
+            key={Math.random()}
+            content={message.content}
+            name={message.name}
+            isOut={message.id === info.id}
+          />
         ))}
       </div>
       <form className={styles.MessageForm} onSubmit={sendMessage}>
         <input
+          ref={messageInput}
           autoComplete="off"
           className={styles.MessageInput}
           type="text"
