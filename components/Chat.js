@@ -14,23 +14,28 @@ export default function Chat({ info, signOut }) {
         id: info.id,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 200) {
+          subscribe();
+          return res.json();
+        } else if (res.status === 401) {
+          signOut(false);
+          return;
+        }
+      })
       .then((res) => {
         setMessages((preMessages) => [
           ...preMessages,
           { name: res.name, content: res.content, id: res.id },
         ]);
-        console.log(res);
+        // console.log(res);
       })
-      .then(() => subscribe())
-      .catch((e) => {
-        console.log(e);
-        signOut(false);
-      });
+      .catch((e) => console.log(`Error ${e}`));
   };
 
   useEffect(() => {
     subscribe();
+    messageInput.current.focus();
   }, []);
 
   const sendMessage = async (event) => {
@@ -45,11 +50,14 @@ export default function Chat({ info, signOut }) {
         message: event.target["input"].value,
       }),
     })
-      .then((res) => console.log(res))
-      .then(() => {
+      .then((res) => {
+        if (res.status === 401) {
+          signOut(false);
+        }
         messageInput.current.value = "";
+        // console.log(res);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(`Error ${e}`));
   };
 
   return (
