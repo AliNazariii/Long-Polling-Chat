@@ -1,0 +1,43 @@
+.ChatWrapper {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.MessagesList {
+  width: 100%;
+  flex: 1;
+}
+
+.MessageForm {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+}
+
+.MessageInput {
+  display: block;
+  border: 1px solid rgb(226, 226, 226);
+  border-radius: 10px;
+  height: 50px;
+  outline: none;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.SendBtn {
+  display: block;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  height: 50px;
+  background-color: #00a9d3;
+  color: #ffffff;
+  font-weight: 600;
+  width: 100px;
+  margin-left: 40px;
+}
